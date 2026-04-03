@@ -1,1 +1,17 @@
-{"buildCommand": null, "outputDirectory": "."}
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "talisautorepair.com"
+        }
+      ],
+      "destination": "https://www.talisautorepair.com/:path*",
+      "permanent": true
+    }
+  ]
+}
