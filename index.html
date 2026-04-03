@@ -55,9 +55,12 @@
 <body class="font-sans antialiased selection:bg-brand-accent selection:text-white">
 
     <!-- NAVIGATION -->
-    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-md border-b border-slate-800">
+    <nav class="fixed w-full z-50 backdrop-blur-md border-b border-red-900/40" style="background: linear-gradient(180deg, #0a1120 0%, #0f172a 100%); box-shadow: 0 2px 24px rgba(220,38,38,0.13), 0 1px 0 rgba(220,38,38,0.18) inset;">
+        <!-- Red accent line at top -->
+        <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-80"></div>
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex items-center h-20 relative">
+                <!-- Logo (left) -->
                 <a href="#" class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
                     <!-- LOGO: cambia "images/logo.png" por tu imagen -->
                     <img
@@ -71,12 +74,16 @@
                     </div>
                     <span class="font-heading font-bold text-xl tracking-tight text-white uppercase">Tali's Auto Repair</span>
                 </a>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#services" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</a>
-                    <a href="#why-us" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Why Us</a>
-                    <a href="#photos" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Inside the Shop</a>
-                    <a href="#location" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Location</a>
-                    <a href="#booking" class="px-5 py-2.5 bg-brand-accent hover:bg-brand-accentHover text-white text-sm font-semibold rounded transition-colors">Book Appointment</a>
+                <!-- Nav links centered absolutely -->
+                <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
+                    <a href="#services" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-md transition-all duration-200 tracking-wide text-center">Services</a>
+                    <a href="#why-us" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-md transition-all duration-200 tracking-wide text-center">Why Us</a>
+                    <a href="#photos" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-md transition-all duration-200 tracking-wide text-center">Inside the Shop</a>
+                    <a href="#location" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-md transition-all duration-200 tracking-wide text-center">Location</a>
+                </div>
+                <!-- CTA button (right) -->
+                <div class="hidden md:flex ml-auto">
+                    <a href="#booking" class="px-5 py-2.5 bg-brand-accent hover:bg-brand-accentHover text-white text-sm font-semibold rounded transition-colors shadow-lg shadow-red-900/30">Book Appointment</a>
                 </div>
             </div>
         </div>
