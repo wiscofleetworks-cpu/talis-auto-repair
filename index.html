@@ -6,6 +6,17 @@
     <title>Tali's Auto Repair | Professional Auto Service in Madison, WI</title>
     <meta name="description" content="Professional auto repair in Madison, WI specializing in mufflers, exhaust systems, suspension, and brakes. Clean, organized, and trustworthy service.">
 
+    <!-- Canonical & Open Graph -->
+    <link rel="canonical" href="https://talisautorepair.com">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://talisautorepair.com">
+    <meta property="og:title" content="Tali's Auto Repair | Professional Auto Service in Madison, WI">
+    <meta property="og:description" content="Professional auto repair in Madison, WI specializing in mufflers, exhaust systems, suspension, and brakes. Clean, organized, and trustworthy service.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://talisautorepair.com">
+    <meta name="twitter:title" content="Tali's Auto Repair | Professional Auto Service in Madison, WI">
+    <meta name="twitter:description" content="Professional auto repair in Madison, WI specializing in mufflers, exhaust systems, suspension, and brakes. Clean, organized, and trustworthy service.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -61,7 +72,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center h-20 relative">
                 <!-- Logo (left) -->
-                <a href="#" class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
+                <a href="https://talisautorepair.com" class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
                     <!-- LOGO: cambia "images/logo.png" por tu imagen -->
                     <img
                         src="images/logo.png"
@@ -92,8 +103,22 @@
     <!-- HERO -->
     <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://zgnpmogdjnnhpwewavnr.supabase.co/storage/v1/object/public/project-images/28a4057e-8883-43b2-b824-ba922e227604/1773261450938-8j8vz.png" alt="Auto Shop Background" class="w-full h-full object-cover opacity-30 mix-blend-luminosity">
-            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent"></div>
+            <!-- VIDEO HERO: reemplaza "images/hero-video.mp4" con tu video del taller -->
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                class="w-full h-full object-cover"
+                style="opacity: 0.35; mix-blend-mode: luminosity;"
+                poster="https://zgnpmogdjnnhpwewavnr.supabase.co/storage/v1/object/public/project-images/28a4057e-8883-43b2-b824-ba922e227604/1773261450938-8j8vz.png"
+            >
+                <source src="images/hero-video.mp4" type="video/mp4">
+                <source src="images/hero-video.webm" type="video/webm">
+                <!-- Fallback si no hay video -->
+                <img src="https://zgnpmogdjnnhpwewavnr.supabase.co/storage/v1/object/public/project-images/28a4057e-8883-43b2-b824-ba922e227604/1773261450938-8j8vz.png" alt="Auto Shop Background" class="w-full h-full object-cover">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/70 to-brand-dark/30"></div>
         </div>
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm font-medium text-slate-300 mb-8 animate-on-scroll">
@@ -279,7 +304,7 @@
                 <p class="text-slate-400">Fill out the form below to request a time. We will confirm your appointment shortly.</p>
             </div>
             <div class="bg-brand-card border border-slate-700 rounded-2xl p-6 md:p-10 animate-on-scroll shadow-2xl">
-                <form id="contact-form" class="space-y-6">
+                <form id="contact-form" action="//formspree.io/f/mgorobdl" method="POST" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="col-span-1 md:col-span-2">
                             <label class="block text-sm font-medium text-slate-300 mb-2">Service Needed *</label>
