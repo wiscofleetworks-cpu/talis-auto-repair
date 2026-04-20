@@ -468,7 +468,7 @@
                 const res = await fetch('https://zgnpmogdjnnhpwewavnr.supabase.co/functions/v1/contact-form-submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ projectId: '{{PROJECT_ID}}', name: fd.get('name'), email: fd.get('email'), message: msg })
+                    body: JSON.stringify({ projectId: 'zgnpmogdjnnhpwewavnr', name: fd.get('name'), email: fd.get('email'), message: msg })
                 });
                 const data = await res.json();
                 if (res.ok) {
