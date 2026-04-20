@@ -545,18 +545,61 @@
             if (e.target.value) populateTimeSelect(e.target.value);
         });
 
-        // Validate date and time before native Formspree submit
-        document.getElementById('contact-form').addEventListener('submit', e => {
+        // AJAX submit to Formspree with Sunday + date/time validation
+        document.getElementById('contact-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const form = e.target;
             const status = document.getElementById('form-status');
             const dateVal = document.getElementById('date-input').value;
+            const timeVal = document.getElementById('time-select').value;
+
             if (!dateVal || dateVal < todayISO()) {
-                e.preventDefault();
-                status.innerHTML = '<span class="text-red-400">Please select a valid date (today or later).</span>';
+                status.innerHTML = '<span class="text-red-400">Por favor selecciona una fecha válida (hoy o posterior).</span>';
                 return;
             }
-            if (!document.getElementById('time-select').value) {
-                e.preventDefault();
-                status.innerHTML = '<span class="text-red-400">Please select an appointment time.</span>';
+
+            const selected = new Date(dateVal + 'T00:00:00');
+            if (selected.getDay() === 0) {
+                status.innerHTML = '<span class="text-red-400">No aceptamos citas los domingos. Por favor elige otro día.</span>';
+                return;
+            }
+
+            if (!timeVal) {
+                status.innerHTML = '<span class="text-red-400">Por favor selecciona un horario.</span>';
+                return;
+            }
+
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+            status.innerHTML = '';
+
+            try {
+                const res = await fetch('https://formspree.io/f/mgorobdl', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: new FormData(form)
+                });
+
+                if (res.ok) {
+                    form.innerHTML = `<div style="text-align:center; padding: 40px 20px;">
+  <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+  <h3 style="color: #16a34a; font-size: 22px; margin-bottom: 8px;">¡Tu cita fue creada exitosamente!</h3>
+  <p style="color: #4b5563; font-size: 15px;">Te contactaremos pronto para confirmar tu cita.<br>¡Gracias por elegir Tali's Auto Repair!</p>
+</div>`;
+                } else {
+                    const data = await res.json().catch(() => ({}));
+                    const msg = data.errors?.map(err => err.message).join(', ') || 'Ocurrió un error. Por favor intenta de nuevo.';
+                    status.innerHTML = `<span class="text-red-400">${msg}</span>`;
+                    btn.disabled = false;
+                    btn.innerHTML = '<i data-lucide="calendar-check" class="w-5 h-5"></i> Request Appointment';
+                    lucide.createIcons();
+                }
+            } catch {
+                status.innerHTML = '<span class="text-red-400">Error de conexión. Por favor verifica tu internet e intenta de nuevo.</span>';
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="calendar-check" class="w-5 h-5"></i> Request Appointment';
+                lucide.createIcons();
             }
         });
     </script>
