@@ -483,14 +483,6 @@
             return slots;
         }
 
-        function fmtTime(val) {
-            if (!val) return val;
-            const [h, m] = val.split(':').map(Number);
-            const ampm = h < 12 ? 'AM' : 'PM';
-            const h12  = h === 0 ? 12 : h > 12 ? h - 12 : h;
-            return `${h12}:${String(m).padStart(2,'0')} ${ampm}`;
-        }
-
         const ALL_SLOTS = buildAllSlots();
 
         async function populateTimeSelect(dateStr) {
@@ -552,48 +544,12 @@
             if (e.target.value) populateTimeSelect(e.target.value);
         });
 
-        // Contact form submit
-        const contactForm = document.getElementById('contact-form');
-        const formStatus  = document.getElementById('form-status');
-        const submitBtn   = document.getElementById('submit-btn');
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Validate time selection (disabled select bypasses native required)
-            const fd = new FormData(contactForm);
-            if (!fd.get('time')) {
-                formStatus.innerHTML = '<span class="text-red-400">Please select an appointment time.</span>';
-                return;
-            }
-
-            const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Sending...';
-            submitBtn.disabled = true;
-
-            try {
-                const msg = `SERVICE: ${fd.get('service')}\nDATE: ${fd.get('date')}\nTIME: ${fmtTime(fd.get('time'))}\nPHONE: ${fd.get('phone')}\nNOTES: ${fd.get('message')}`;
-                const res = await fetch(`${SUPABASE_URL}/functions/v1/contact-form-submit`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ projectId: PROJECT_ID, name: fd.get('name'), email: fd.get('email'), message: msg })
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    formStatus.innerHTML = '<span class="text-green-400">✓ Appointment request sent! We will contact you shortly.</span>';
-                    contactForm.reset();
-                    const sel = document.getElementById('time-select');
-                    sel.innerHTML = '<option value="" disabled selected>Select a date first…</option>';
-                    sel.disabled = true;
-                } else {
-                    formStatus.innerHTML = `<span class="text-red-400">${data.error || 'Error sending. Please call us directly.'}</span>`;
-                }
-            } catch {
-                formStatus.innerHTML = '<span class="text-red-400">Network error. Please call us at 608-520-9750.</span>';
-            } finally {
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.disabled = false;
-                lucide.createIcons();
+        // Block native submit only if no time selected (disabled select bypasses HTML required)
+        document.getElementById('contact-form').addEventListener('submit', e => {
+            if (!document.getElementById('time-select').value) {
+                e.preventDefault();
+                document.getElementById('form-status').innerHTML =
+                    '<span class="text-red-400">Please select a date and appointment time.</span>';
             }
         });
     </script>
