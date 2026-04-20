@@ -305,6 +305,7 @@
             </div>
             <div class="bg-brand-card border border-slate-700 rounded-2xl p-6 md:p-10 animate-on-scroll shadow-2xl">
                 <form id="contact-form" action="//formspree.io/f/mgorobdl" method="POST" class="space-y-6">
+                    <input type="hidden" name="_next" value="https://www.talisautorepair.com">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="col-span-1 md:col-span-2">
                             <label class="block text-sm font-medium text-slate-300 mb-2">Service Needed *</label>
@@ -544,12 +545,18 @@
             if (e.target.value) populateTimeSelect(e.target.value);
         });
 
-        // Block native submit only if no time selected (disabled select bypasses HTML required)
+        // Validate date and time before native Formspree submit
         document.getElementById('contact-form').addEventListener('submit', e => {
+            const status = document.getElementById('form-status');
+            const dateVal = document.getElementById('date-input').value;
+            if (!dateVal || dateVal < todayISO()) {
+                e.preventDefault();
+                status.innerHTML = '<span class="text-red-400">Please select a valid date (today or later).</span>';
+                return;
+            }
             if (!document.getElementById('time-select').value) {
                 e.preventDefault();
-                document.getElementById('form-status').innerHTML =
-                    '<span class="text-red-400">Please select a date and appointment time.</span>';
+                status.innerHTML = '<span class="text-red-400">Please select an appointment time.</span>';
             }
         });
     </script>
